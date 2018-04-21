@@ -14,8 +14,11 @@ const Service = db.define('service', {
     type: Sequelize.DATE,
     allowNull: false
   },
+  //could break up location into mutliple fields as customer base grows
   location: {
     type: Sequelize.STRING,
     allowNull: false
   }
 })
+
+module.exports = Service;
