@@ -8,6 +8,18 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName: {
+    type: Sequelize.STRING
+  },
+  phoneNumber: {
+    type: Sequelize.STRING
+  },
+  address: {
+    type: Sequelize.STRING
+  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
@@ -23,10 +35,14 @@ const User = db.define('user', {
     get () {
       return () => this.getDataValue('salt')
     }
-  },
-  googleId: {
-    type: Sequelize.STRING
   }
+},
+{
+    getterMethods: {
+      fullName: function(){
+        return (this.firstName + ' ' + this.lastName)
+      }
+    }
 })
 
 module.exports = User
