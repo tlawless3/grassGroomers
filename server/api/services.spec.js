@@ -35,5 +35,22 @@ describe('Service routes', () => {
             expect(res.body[0].location).to.be.equal(xlocation)
           })
       })
+
+      it('POST /api/services', () => {
+        return request(app)
+          .post('/api/services')
+          .send({
+            type: xtype,
+            startTime: xstartTime,
+            endTime: xendTime,
+            location: xlocation
+          })
+          .then(res => {
+            expect(res.body.type).to.be.equal(xtype)
+            expect(res.body.startTime).to.be.equal(xstartTime)
+            expect(res.body.endTime).to.be.equal(xendTime)
+            expect(res.body.location).to.be.equal(xlocation)
+          })
+      })
   })
 })
