@@ -29,5 +29,21 @@ describe('User routes', () => {
           expect(res.body[0].email).to.be.equal(codysEmail)
         })
     })
+
+    it('POST /api/users', () => {
+      return request(app)
+        .post('/api/users')
+        .send({
+          email: 'bobdole@yahoo.com',
+          firstName: 'bob',
+          lastName: 'dole',
+          password: 'password'
+        })
+        .expect(201)
+        .then(res => {
+          expect(res.body.email).to.be.equal('bobdole@yahoo.com')
+          expect(res.body.name).to.be.equal('bob dole')
+        })
+    })
   }) // end describe('/api/users')
 }) // end describe('User routes')
