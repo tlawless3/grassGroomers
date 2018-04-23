@@ -16,6 +16,7 @@ router.post('/', (req, res, next) =>{
     .catch(next)
 })
 
+// /api/services/:userId
 router.get('/:userId', (req, res, next) => {
   Service.findAll({
     where: {
