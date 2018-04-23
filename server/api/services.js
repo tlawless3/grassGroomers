@@ -16,10 +16,12 @@ router.post('/', (req, res, next) =>{
     .catch(next)
 })
 
-router.post('/:userId', (req, res, next) => {
+router.get('/:userId', (req, res, next) => {
   Service.findAll({
     where: {
       userId: req.params.userId
     }
   })
+    .then(services => res.json(services))
+    .catch(next)
 })
