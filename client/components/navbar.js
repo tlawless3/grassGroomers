@@ -4,17 +4,19 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Responsive} from 'semantic-ui-react'
+import NavbarDesktop from './navbarDesktop'
+import NavbarMobile from './navbarMobile'
 
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   
   return(
     <div>
-      <Responsive minWidth={750} >
-        <p>Desktop</p>
+      <Responsive minWidth={751} >
+        <NavbarDesktop />
       </Responsive>
       <Responsive maxWidth={750} >
-        <p>Mobile</p>
+        <NavbarMobile />
       </Responsive>
     </div>
   )
