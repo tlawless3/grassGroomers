@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -8,18 +8,44 @@ import NavbarDesktop from './navbarDesktop'
 import NavbarMobile from './navbarMobile'
 
 
-const Navbar = ({ handleClick, isLoggedIn }) => {
+class Navbar extends Component{
+  constructor(){
+    super()
+    this.state = {
+      visible: false,
+      activeItem: 'home'
+    }
+    
+    this.handleMobileClick = this.handleMobileClick.bind(this)
+    this.handleItemClick = this.handleItemClick.bind(this)
+  }
   
-  return(
-    <div>
-      <Responsive minWidth={751} >
-        <NavbarDesktop />
-      </Responsive>
-      <Responsive maxWidth={750} >
-        <NavbarMobile />
-      </Responsive>
-    </div>
-  )
+  handleMobileClick(){
+    console.log('hello')
+    this.setState({
+      visible: !this.state.visible
+    })
+  }
+  
+  handleItemClick(e, {name}){
+    console.log(name)
+    this.setState({
+      activeItem: name
+    })
+  }
+  
+  render() {
+    return(
+      <div>
+        <Responsive minWidth={751} >
+          <NavbarDesktop isLoggedIn={this.props.isLoggedIn} activeItem={this.state.activeItem} handleItemClick={this.handleItemClick}/>
+        </Responsive>
+        <Responsive maxWidth={750} >
+          <NavbarMobile handleItemClick={this.handleItemClick} isLoggedIn={this.props.isLoggedIn} handleMobileClick={this.handleMobileClick} />
+        </Responsive>
+      </div>
+    )
+  }
 }
 /**
  * CONTAINER
