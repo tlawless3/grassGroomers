@@ -5,20 +5,43 @@ class Carousel extends Component{
     super()
     this.state={
       imageCounter: 0,
-      intervalId: ''
+      intervalId: '',
+      images: [
+      'assets/carouselImage1.jpg',
+      'assets/carouselImage2.jpg',
+      'assets/carouselImage3.jpg',
+      'assets/carouselImage4.jpg'
+      ]
     }
   }
 
+  componentDidMount(){
+    const loopId = setInterval(() => {this.loopImages()}, 1000)
+    this.setState({
+      intervalId: loopId
+    })
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.state.intervalId)
+  }
+
+  loopImages(){
+    let count = this.state.imageCounter;
+    if(count === this.state.images.length - 1){
+      count = 0;
+    } else{
+      count++
+    }
+    this.setState({
+      imageCounter: count
+    })
+  }
+
   render(){
-    const images =[
-    'assets/carouselImage1.jpg',
-    'assets/carouselImage2.jpg',
-    'assets/carouselImage3.jpg',
-    'public/assets/carouselImage4.jpg'
-    ]
     return(
       <div>
-        <img src={images[this.state.imageCounter]} />
+        <img src={this.state.images[this.state.imageCounter]} />
       </div>
     )
   }
