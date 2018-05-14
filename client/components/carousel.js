@@ -88,7 +88,7 @@ class Carousel extends Component{
           <img id='carouselImage' src={this.state.images[this.state.imageCounter]} />
         </div>
         <CarouselArrowForward advanceImage={this.advanceImage} />
-        <CarouselButtons imageArray={this.state.images} jumpToImage={this.jumpToImage} />
+        <CarouselButtons imageCounter={this.state.imageCounter} imageArray={this.state.images} jumpToImage={this.jumpToImage} />
       </div>
     )
   }
