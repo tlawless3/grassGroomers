@@ -6,7 +6,7 @@ const CarouselButtons = ({
 }) => {
 
   return (
-    <div>
+    <div id='buttonContainer'>
       {imageArray.map((image, index) => (
           <div className='button' onClick={() => jumpToImage(index)} key={index}>
           </div>

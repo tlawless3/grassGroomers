@@ -20,16 +20,17 @@ form div {
   display: inline-block;
 }
 
-.arrowTest {
-  width: 100px;
-  height: 100px;
-  background-color: red;
+.button{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: green;
 }
 
-.button{
-  width: 50px;
-  height: 50px;
-  background-color: green;
+#buttonContainer{
+  display: flex;
 }
 
 #carouselImage {
