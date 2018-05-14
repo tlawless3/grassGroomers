@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CarouselArrowBack from './carouselArrowBack'
 import CarouselArrowForward from './carouselArrowForward'
+import CarouselButtons from './carouselButtons'
 
 class Carousel extends Component{
   constructor(){
@@ -17,7 +18,7 @@ class Carousel extends Component{
     }
     this.reverseImage = this.reverseImage.bind(this)
     this.advanceImage = this.reverseImage.bind(this)
-    this.startLoop = this.startLoop.bind(this)
+    this.jumpToImage = this.jumpToImage.bind(this)
   }
 
   componentDidMount(){
@@ -33,6 +34,14 @@ class Carousel extends Component{
     this.setState({
       intervalId: loopId
     })
+  }
+
+  jumpToImage(index){
+    clearInterval(this.state.intervalId)
+    this.setState({
+      imageCounter: index
+    })
+    this.startLoop()
   }
 
   reverseImage(){
@@ -83,6 +92,7 @@ class Carousel extends Component{
           <img id='carouselImage' src={this.state.images[this.state.imageCounter]} />
         </div>
         <CarouselArrowForward advanceImage={this.advanceImage} />
+        <CarouselButtons imageArray={this.state.images} jumpToImage={this.jumpToImage} />
       </div>
     )
   }
