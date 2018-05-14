@@ -2,13 +2,14 @@ import React from 'react'
 
 const CarouselButtons = ({
   imageArray,
-  jumpToImage
+  jumpToImage,
+  imageCounter
 }) => {
 
   return (
     <div id='buttonContainer'>
       {imageArray.map((image, index) => (
-          <div className='button' onClick={() => jumpToImage(index)} key={index}>
+          <div className='carouselButton' id={index === imageCounter ? 'fillCarouselButton' : ''} onClick={() => jumpToImage(index)} key={index}>
           </div>
         )
       )}

@@ -17,12 +17,12 @@ class Carousel extends Component{
       ]
     }
     this.reverseImage = this.reverseImage.bind(this)
-    this.advanceImage = this.reverseImage.bind(this)
+    this.advanceImage = this.advanceImage.bind(this)
     this.jumpToImage = this.jumpToImage.bind(this)
   }
 
   componentDidMount(){
-    this.startLoop()
+    // this.startLoop()
   }
 
   componentWillUnmount(){
@@ -30,12 +30,13 @@ class Carousel extends Component{
   }
 
   startLoop(){
-    const loopId = setInterval(() => {this.loopImages()}, 2000)
+    const loopId = setInterval(() => {this.loopImages()}, 5000)
     this.setState({
       intervalId: loopId
     })
   }
 
+  //jumps to index of button clicked
   jumpToImage(index){
     clearInterval(this.state.intervalId)
     this.setState({
@@ -44,9 +45,10 @@ class Carousel extends Component{
     this.startLoop()
   }
 
+  //moves image back one
   reverseImage(){
     clearInterval(this.state.intervalId)
-    let count = this.state.imageCounter;
+    let count = this.state.imageCounter
     if(count === 0){
       count = this.state.images.length - 1;
     } else{
@@ -58,20 +60,14 @@ class Carousel extends Component{
     })
   }
 
+  //moves image forward one
   advanceImage(){
     clearInterval(this.state.intervalId)
-    let count = this.state.imageCounter;
-    if(count >= this.state.images.length - 1){
-      count = 0;
-    } else{
-      count++
-    }
+    this.loopImages()
     this.startLoop()
-    this.setState({
-      imageCounter: count
-    })
   }
 
+  //used to prepetually loop images
   loopImages(){
     let count = this.state.imageCounter;
     if(count >= this.state.images.length - 1){
@@ -86,13 +82,15 @@ class Carousel extends Component{
 
   render(){
     return(
-      <div>
-        <CarouselArrowBack reverseImage={this.reverseImage} />
-        <div>
+      <div id='carouselWrapper'>
+        <div id='arrowWrapper'>
+          <CarouselArrowBack reverseImage={this.reverseImage} />
+          <CarouselArrowForward advanceImage={this.advanceImage} />
+        </div>
+        <div id='carouselImageWrapper'>
           <img id='carouselImage' src={this.state.images[this.state.imageCounter]} />
         </div>
-        <CarouselArrowForward advanceImage={this.advanceImage} />
-        <CarouselButtons imageArray={this.state.images} jumpToImage={this.jumpToImage} />
+        <CarouselButtons imageCounter={this.state.imageCounter} imageArray={this.state.images} jumpToImage={this.jumpToImage} />
       </div>
     )
   }

@@ -1,14 +1,14 @@
 import React from 'react'
 import {Icon} from 'semantic-ui-react'
 
-const carouselArrowBack = ({
+const CarouselArrowBack = ({
   reverseImage
 }) => {
   return (
     <div className='arrow' onClick={reverseImage}>
-      <Icon name='chevron left' size='big' />
+      <Icon inverted name='chevron left' size='big' />
     </div>
   )
 }
 
-export default carouselArrowBack
+export default CarouselArrowBack
