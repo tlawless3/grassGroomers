@@ -26,6 +26,36 @@ class Carousel extends Component{
     clearInterval(this.state.intervalId)
   }
 
+  reverseImage(){
+    clearInterval(this.state.intervalId)
+    let count = this.state.imageCounter;
+    if(count === 0){
+      count = this.state.images.length - 1;
+    } else{
+      count++
+    }
+    const loopId = setInterval(() => {this.loopImages()}, 1000)
+    this.setState({
+      intervalId: loopId,
+      imageCounter: count
+    })
+  }
+
+  advanceImage(){
+    clearInterval(this.state.intervalId)
+    let count = this.state.imageCounter;
+    if(count === this.state.images.length - 1){
+      count = 0;
+    } else{
+      count++
+    }
+    const loopId = setInterval(() => {this.loopImages()}, 1000)
+    this.setState({
+      intervalId: loopId,
+      imageCounter: count
+    })
+  }
+
   loopImages(){
     let count = this.state.imageCounter;
     if(count === this.state.images.length - 1){
@@ -41,7 +71,9 @@ class Carousel extends Component{
   render(){
     return(
       <div>
-        <img src={this.state.images[this.state.imageCounter]} />
+        <div>
+          <img id='carouselImage' src={this.state.images[this.state.imageCounter]} />
+        </div>
       </div>
     )
   }
