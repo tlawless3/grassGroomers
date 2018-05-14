@@ -6,7 +6,7 @@ const CarouselArrowForward = ({
 }) => {
   return (
     <div className='arrow' onClick={advanceImage}>
-      <Icon name='chevron right' size='big' />
+      <Icon inverted name='chevron right' size='big' />
     </div>
   )
 }

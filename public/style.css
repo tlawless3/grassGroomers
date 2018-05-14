@@ -20,24 +20,51 @@ form div {
   display: inline-block;
 }
 
+.arrow{
+  width: 28px;
+}
+
+#arrowWrapper{
+  margin: auto;
+  width: 95%;
+  z-index: 99;
+  position: relative;
+  top: 234px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .carouselButton{
   width: 15px;
   height: 15px;
   border-radius: 50%;
   border-style: solid;
   border-width: 2px;
-  border-color: green;
+  border-color: white;
 }
 
 #fillCarouselButton{
-  background-color: red;
+  background-color: white;
+}
+
+#carouselImageWrapper{
+  width: 100%;
+  height: 500px;
 }
 
 #buttonContainer{
+  z-index: 9;
+  position: relative;
+  bottom: 100px;
+  left: 50%;
+  margin-left: -100px;
+  width: 200px;
   display: flex;
+  justify-content: space-evenly;
 }
 
 #carouselImage {
-  width: 500px;
-  height: 400px;
+  object-fit: cover;
+  width: 100%;
+  height: 500px;
 }

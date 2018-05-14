@@ -6,7 +6,7 @@ const CarouselArrowBack = ({
 }) => {
   return (
     <div className='arrow' onClick={reverseImage}>
-      <Icon name='chevron left' size='big' />
+      <Icon inverted name='chevron left' size='big' />
     </div>
   )
 }

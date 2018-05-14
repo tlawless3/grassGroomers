@@ -82,12 +82,14 @@ class Carousel extends Component{
 
   render(){
     return(
-      <div>
-        <CarouselArrowBack reverseImage={this.reverseImage} />
-        <div>
+      <div id='carouselWrapper'>
+        <div id='arrowWrapper'>
+          <CarouselArrowBack reverseImage={this.reverseImage} />
+          <CarouselArrowForward advanceImage={this.advanceImage} />
+        </div>
+        <div id='carouselImageWrapper'>
           <img id='carouselImage' src={this.state.images[this.state.imageCounter]} />
         </div>
-        <CarouselArrowForward advanceImage={this.advanceImage} />
         <CarouselButtons imageCounter={this.state.imageCounter} imageArray={this.state.images} jumpToImage={this.jumpToImage} />
       </div>
     )
