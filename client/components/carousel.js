@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import CarouselArrowBack from './carouselArrowBack'
+import CarouselArrowForward from './carouselArrowForward'
 
 class Carousel extends Component{
   constructor(){
@@ -13,17 +15,24 @@ class Carousel extends Component{
       'assets/carouselImage4.jpg'
       ]
     }
+    this.reverseImage = this.reverseImage.bind(this)
+    this.advanceImage = this.reverseImage.bind(this)
+    this.startLoop = this.startLoop.bind(this)
   }
 
   componentDidMount(){
-    const loopId = setInterval(() => {this.loopImages()}, 1000)
-    this.setState({
-      intervalId: loopId
-    })
+    this.startLoop()
   }
 
   componentWillUnmount(){
     clearInterval(this.state.intervalId)
+  }
+
+  startLoop(){
+    const loopId = setInterval(() => {this.loopImages()}, 2000)
+    this.setState({
+      intervalId: loopId
+    })
   }
 
   reverseImage(){
@@ -32,11 +41,10 @@ class Carousel extends Component{
     if(count === 0){
       count = this.state.images.length - 1;
     } else{
-      count++
+      count--
     }
-    const loopId = setInterval(() => {this.loopImages()}, 1000)
+    this.startLoop()
     this.setState({
-      intervalId: loopId,
       imageCounter: count
     })
   }
@@ -44,21 +52,20 @@ class Carousel extends Component{
   advanceImage(){
     clearInterval(this.state.intervalId)
     let count = this.state.imageCounter;
-    if(count === this.state.images.length - 1){
+    if(count >= this.state.images.length - 1){
       count = 0;
     } else{
       count++
     }
-    const loopId = setInterval(() => {this.loopImages()}, 1000)
+    this.startLoop()
     this.setState({
-      intervalId: loopId,
       imageCounter: count
     })
   }
 
   loopImages(){
     let count = this.state.imageCounter;
-    if(count === this.state.images.length - 1){
+    if(count >= this.state.images.length - 1){
       count = 0;
     } else{
       count++
@@ -71,9 +78,11 @@ class Carousel extends Component{
   render(){
     return(
       <div>
+        <CarouselArrowBack reverseImage={this.reverseImage} />
         <div>
           <img id='carouselImage' src={this.state.images[this.state.imageCounter]} />
         </div>
+        <CarouselArrowForward advanceImage={this.advanceImage} />
       </div>
     )
   }

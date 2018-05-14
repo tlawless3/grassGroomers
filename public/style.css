@@ -20,6 +20,12 @@ form div {
   display: inline-block;
 }
 
+.arrowTest {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
 #carouselImage {
   width: 500px;
   height: 400px;
