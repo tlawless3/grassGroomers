@@ -22,7 +22,7 @@ class Carousel extends Component{
   }
 
   componentDidMount(){
-    // this.startLoop()
+    this.startLoop()
   }
 
   componentWillUnmount(){

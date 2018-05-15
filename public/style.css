@@ -67,4 +67,5 @@ form div {
   object-fit: cover;
   width: 100%;
   height: 500px;
+  transition: opacity 1s ease-in;
 }
