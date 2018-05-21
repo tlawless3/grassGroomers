@@ -18,7 +18,13 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
   },
   password: {
     type: Sequelize.STRING,
