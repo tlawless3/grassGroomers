@@ -69,3 +69,9 @@ form div {
   height: 500px;
   transition: opacity 1s ease-in;
 }
+
+#signupForm{
+  max-width: 600px;
+  padding-top: 20px;
+  margin: auto;
+}
