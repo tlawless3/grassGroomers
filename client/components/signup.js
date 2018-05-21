@@ -14,6 +14,7 @@ class Signup extends Component{
       city: '',
       state: '',
       password: '',
+      zipcode: '',
       confirmPassword: '',
       error: false,
       errorMessage: ''
@@ -25,10 +26,16 @@ class Signup extends Component{
   }
 
   handleSubmit(){
-    this.validate()
+    this.validate().then(()=>{
+      if (!this.state.error){
+        console.log('submitted')
+      } else {
+        console.log('rejected')
+      }
+    })
   }
 
-  validate(){
+  async validate(){
     let message = '';
     let emailRegEx = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
     if(!this.state.firstName || !this.state.lastName){
@@ -37,7 +44,7 @@ class Signup extends Component{
     if(!this.state.email || !emailRegEx.test(this.state.email)){
       message += 'Enter a valid E-Mail, '
     }
-    if(!this.state.streetAddress || !this.state.city || !this.state.state){
+    if(!this.state.streetAddress || !this.state.city || !this.state.state || !this.state.zipcode){
       message += 'Enter an address, '
     }
     if(!this.state.password || !this.state.confirmPassword){
@@ -85,6 +92,7 @@ class Signup extends Component{
           </Form.Group>
           <Form.Group widths='equal'>
             <Form.Input onChange={this.handleChange} fluid label='Street Address' name='streetAddress' placeholder='Street Address' />
+            <Form.Input onChange={this.handleChange} fluid label='Zipcode' name='zipcode' placeholder='Zipcode' />
           </Form.Group>
           <Form.Group widths='equal'>
             <Form.Input onChange={this.handleChange} fluid label='City' name='city' placeholder='City' />
