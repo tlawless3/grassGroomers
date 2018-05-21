@@ -109,4 +109,7 @@ class Signup extends Component{
   }
 }
 
-export default Signup
+
+
+export const SignupInfo = connect(mapState, mapDispatchSignup)(Signup)
+export const ChangeInfo = connect(mapState, mapDispatchChange)(Signup)
