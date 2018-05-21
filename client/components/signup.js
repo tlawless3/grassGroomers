@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Button, Form, Message} from 'semantic-ui-react'
+import {connect} from 'react-redux'
 
 class Signup extends Component{
   constructor(){
@@ -107,6 +108,16 @@ class Signup extends Component{
       </div>
     )
   }
+}
+
+const mapState = ({ user }) => ({ user })
+
+const mapDispatchSignup = (dispatch) =>{
+    return null
+}
+
+const mapDispatchChange = (dispatch) =>{
+    return null
 }
 
 export const SignupInfo = connect(mapState, mapDispatchSignup)(Signup)
