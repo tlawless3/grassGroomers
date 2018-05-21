@@ -11,14 +11,12 @@ describe('Service routes', () => {
 
   describe('/api/services', () => {
       const xtype = 'mowing';
-      const xstartTime = '2018-04-23T12:45:09.506Z';
-      const xendTime = '2018-04-23T11:45:09.506Z';
+      const xdate = '2018-04-23T12:45:09.506Z';
       const xlocation = '123 fake st'
       beforeEach(() => {
         return Service.create({
           type: xtype,
-          startTime: xstartTime,
-          endTime: xendTime,
+          date: xdate,
           location: xlocation
         })
       })
@@ -30,8 +28,7 @@ describe('Service routes', () => {
           .then(res => {
             expect(res.body).to.be.an('array')
             expect(res.body[0].type).to.be.equal(xtype)
-            expect(res.body[0].startTime).to.be.equal(xstartTime)
-            expect(res.body[0].endTime).to.be.equal(xendTime)
+            expect(res.body[0].date).to.be.equal(xdate)
             expect(res.body[0].location).to.be.equal(xlocation)
           })
       })
@@ -47,8 +44,7 @@ describe('Service routes', () => {
           })
           .then(res => {
             expect(res.body.type).to.be.equal(xtype)
-            expect(res.body.startTime).to.be.equal(xstartTime)
-            expect(res.body.endTime).to.be.equal(xendTime)
+            expect(res.body.date).to.be.equal(xdate)
             expect(res.body.location).to.be.equal(xlocation)
           })
       })

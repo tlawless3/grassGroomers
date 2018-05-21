@@ -6,18 +6,16 @@ const Service = db.define('service', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  startTime: {
+  date: {
     type: Sequelize.DATE,
     allowNull: false
   },
-  endTime: {
-    type: Sequelize.DATE,
-    allowNull: false
-  },
-  //could break up location into mutliple fields as customer base grows
   location: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  note: {
+    type: Sequelize.TEXT
   }
 })
 
