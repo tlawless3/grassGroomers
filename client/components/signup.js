@@ -109,7 +109,5 @@ class Signup extends Component{
   }
 }
 
-
-
 export const SignupInfo = connect(mapState, mapDispatchSignup)(Signup)
 export const ChangeInfo = connect(mapState, mapDispatchChange)(Signup)
