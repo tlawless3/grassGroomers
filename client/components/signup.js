@@ -1,50 +1,98 @@
 import React, {Component} from 'react'
-import {Button, Form} from 'semantic-ui-react'
+import {Button, Form, Message} from 'semantic-ui-react'
 
 class Signup extends Component{
   constructor(){
     super()
+
     this.state={
       firstName: '',
       lastName: '',
-      eMail: '',
+      email: '',
       phone: '',
       streetAddress: '',
       city: '',
       state: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      error: false,
+      errorMessage: ''
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.validate = this.validate.bind(this)
   }
 
   handleSubmit(){
-    console.log('hello')
+    this.validate()
+  }
+
+  validate(){
+    let message = '';
+    let emailRegEx = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+    if(!this.state.firstName || !this.state.lastName){
+      message += 'Enter a full name, '
+    }
+    if(!this.state.email || !emailRegEx.test(this.state.email)){
+      message += 'Enter a valid E-Mail, '
+    }
+    if(!this.state.streetAddress || !this.state.city || !this.state.state){
+      message += 'Enter an address, '
+    }
+    if(!this.state.password || !this.state.confirmPassword){
+      message += 'Eneter a password, '
+    }
+    if(this.state.password !== this.state.confirmPassword){
+      message += 'Passwords do not match, '
+    }
+    if(message){
+      this.setState({
+        error: true,
+        errorMessage: message
+      })
+    } else{
+      this.setState({
+        error: false
+      })
+    }
+  }
+
+  handleChange(e, {name, value}){
+    this.setState({
+      [name]: value
+    })
   }
 
   render(){
     return(
       <div id='signupForm'>
-        <Form onSubmit={this.handleSubmit}>
+        <Form error={this.state.error} onSubmit={this.handleSubmit}>
+          <Message
+            error
+            Header='Error'
+            content={this.state.errorMessage}
+          />
           <Form.Group widths='equal'>
-            <Form.Input fluid label='First name' placeholder='First name' />
-            <Form.Input fluid label='Last name' placeholder='Last name' />
+            <Form.Input onChange={this.handleChange} fluid label='First name' name='firstName' placeholder='First name' />
+            <Form.Input onChange={this.handleChange} fluid label='Last name' name='lastName' placeholder='Last name' />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Input fluid label='E-Mail' placeholder='E-Mail' />
+            <Form.Input onChange={this.handleChange} fluid label='E-Mail' name='email' placeholder='E-Mail' />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Input fluid label='Phone Number' placeholder='Phone Number' />
+            <Form.Input onChange={this.handleChange} fluid label='Phone Number' name='phone' placeholder='Phone Number' />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Input fluid label='Street Address' placeholder='Street Address' />
+            <Form.Input onChange={this.handleChange} fluid label='Street Address' name='streetAddress' placeholder='Street Address' />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Input fluid label='City' placeholder='City' />
-            <Form.Input fluid label='State' placeholder='State' />
+            <Form.Input onChange={this.handleChange} fluid label='City' name='city' placeholder='City' />
+            <Form.Input onChange={this.handleChange} fluid label='State' name='state' placeholder='State' />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Input fluid label='Password' placeholder='Password' />
-            <Form.Input fluid label='Confirm Password' placeholder='Confirm Password' />
+            <Form.Input onChange={this.handleChange} fluid label='Password' name='password' placeholder='Password' />
+            <Form.Input onChange={this.handleChange} fluid label='Confirm Password' name='confirmPassword' placeholder='Confirm Password' />
           </Form.Group>
           <Form.Button content='Submit' />
         </Form>
