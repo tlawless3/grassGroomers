@@ -43,7 +43,7 @@ router.get('/:id', (req, res, next) => {
 router.put('/change', (req, res, next) => {
   User.update(
     req.body.user,
-    {where: {id: req.body.user.id}}
+    {where: {id: req.body.email}}
   )
     .then(user => {
       let userObj = {
@@ -52,4 +52,5 @@ router.put('/change', (req, res, next) => {
       }
       res.json(userObj)
     })
+    .catch(next)
 })

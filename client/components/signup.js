@@ -76,6 +76,7 @@ class Signup extends Component{
   render(){
     return(
       <div id='signupForm'>
+        <p id='signupFormTitle'>{this.props.name}</p>
         <Form error={this.state.error} onSubmit={this.handleSubmit}>
           <Message
             error
@@ -111,7 +112,13 @@ class Signup extends Component{
   }
 }
 
-const mapState = ({ user }) => ({ user })
+const mapStateSignup = (state) => ({
+  name: 'Sign Up'
+})
+
+const mapStateChange = (state) => ({
+  name: 'Update Information'
+})
 
 const mapDispatchSignup = (dispatch) =>{
     return null
@@ -121,5 +128,5 @@ const mapDispatchChange = (dispatch) =>{
     return null
 }
 
-export const SignupInfo = connect(mapState, mapDispatchSignup)(Signup)
-export const ChangeInfo = connect(mapState, mapDispatchChange)(Signup)
+export const SignupInfo = connect(mapStateSignup, mapDispatchSignup)(Signup)
+export const ChangeInfo = connect(mapStateChange, mapDispatchChange)(Signup)
