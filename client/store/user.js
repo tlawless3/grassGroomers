@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
 /**
  * INITIAL STATE
@@ -17,10 +18,21 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const setCurrentUser = user => ({ type: SET_CURRENT_USER, user })
 
 /**
  * THUNK CREATORS
  */
+
+export const signup = (credentials) =>
+ dispatch => {
+   axios.post('/auth/signup', credentials)
+     .then(res => {
+       dispatch(setCurrentUser(res.data))
+     })
+     .catch(err => console.error(`Logging in with ${credentials.email} and ${credentials.password} was unsuccesful`, err));
+  };
+
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')
@@ -57,6 +69,8 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case SET_CURRENT_USER:
+      return action.user
     default:
       return state
   }
