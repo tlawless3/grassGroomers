@@ -75,3 +75,9 @@ form div {
   padding-top: 20px;
   margin: auto;
 }
+
+#signupFormTitle{
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+}

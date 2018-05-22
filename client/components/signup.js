@@ -1,11 +1,14 @@
 import React, {Component} from 'react'
 import {Button, Form, Message} from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import {auth} from '../store'
+import { signup as signUpReducer } from '../store/user'
 
 class Signup extends Component{
   constructor(){
     super()
 
-    this.state={
+    this.state = {
       firstName: '',
       lastName: '',
       email: '',
@@ -13,8 +16,8 @@ class Signup extends Component{
       streetAddress: '',
       city: '',
       state: '',
-      password: '',
       zipcode: '',
+      password: '',
       confirmPassword: '',
       error: false,
       errorMessage: ''
@@ -23,16 +26,37 @@ class Signup extends Component{
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.validate = this.validate.bind(this)
+    this.parseData = this.parseData.binds(this)
   }
 
   handleSubmit(){
-    this.validate().then(()=>{
+    this.validate().then(() => {
       if (!this.state.error){
         console.log('submitted')
+        console.log(this.parseData)
+        this.props.submit(this.parseData())
       } else {
         console.log('rejected')
       }
     })
+  }
+
+  parseData(){
+    const addressObj = (
+      this.state.streetAddress + ', ' +
+      this.state.city + ', ' +
+      this.state.state + ', ' +
+      this.state.zipcode
+    )
+    const userData = {
+      email: this.state.email,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      phoneNumber: this.state.phone,
+      address: addressObj,
+      password: this.state.password
+    }
+    return userData
   }
 
   async validate(){
@@ -74,10 +98,11 @@ class Signup extends Component{
   render(){
     return(
       <div id='signupForm'>
+        <p id='signupFormTitle'>{this.props.name}</p>
         <Form error={this.state.error} onSubmit={this.handleSubmit}>
           <Message
             error
-            Header='Error'
+            header='Error: '
             content={this.state.errorMessage}
           />
           <Form.Group widths='equal'>
@@ -109,5 +134,24 @@ class Signup extends Component{
   }
 }
 
-export const SignupInfo = connect(mapState, mapDispatchSignup)(Signup)
-export const ChangeInfo = connect(mapState, mapDispatchChange)(Signup)
+const mapStateSignup = (state) => ({
+  name: 'Sign Up'
+})
+
+const mapStateChange = (state) => ({
+  name: 'Update Information',
+  user: state.user
+})
+
+const mapDispatchChange = (dispatch) =>{
+    return null
+}
+
+const mapDispatchSignup = (dispatch) => ({
+    submit(data){
+      dispatch(signUpReducer(data))
+    }
+})
+
+export const SignupInfo = connect(mapStateSignup, mapDispatchSignup)(Signup)
+export const ChangeInfo = connect(mapStateChange, mapDispatchChange)(Signup)
