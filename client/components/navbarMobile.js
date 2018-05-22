@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 
 const NavbarMobile = ({
   isLoggedIn,
-  handleItemClick
+  handleItemClick,
+  logoutOnClick
 }) => {
 
   return (
@@ -16,7 +17,7 @@ const NavbarMobile = ({
                 <Dropdown.Item as={Link} to='/' name='home' onClick={handleItemClick}>Home</Dropdown.Item>
                 <Dropdown.Item name='schedule' onClick={handleItemClick}>Appointments</Dropdown.Item>
                 //name has to be home for the handleItemClick function
-                <Dropdown.Item as={Link} to='/' name='home' onClick={handleItemClick}>Log Out</Dropdown.Item>
+                <Dropdown.Item as={Link} to='/' name='home' onClick={logoutOnClick}>Log Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
         </Menu>

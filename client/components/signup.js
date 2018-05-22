@@ -26,14 +26,13 @@ class Signup extends Component{
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.validate = this.validate.bind(this)
-    this.parseData = this.parseData.binds(this)
   }
 
   handleSubmit(){
     this.validate().then(() => {
       if (!this.state.error){
         console.log('submitted')
-        console.log(this.parseData)
+        console.log(this.parseData())
         this.props.submit(this.parseData())
       } else {
         console.log('rejected')
