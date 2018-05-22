@@ -26,3 +26,30 @@ router.post('/', (req, res, next) => {
     ))
     .catch(next)
 })
+
+// api/users/id used to check for admin status
+router.get('/:id', (req, res, next) => {
+  User.findOne({
+    where: {id: req.params.id},
+    attributes: ['id', 'email', 'admin']
+  })
+    .then(user => {
+      res.json(user)
+    })
+    .catch(next)
+})
+
+// api/change
+router.put('/change', (req, res, next) => {
+  User.update(
+    req.body.user,
+    {where: {id: req.body.user.id}}
+  )
+    .then(user => {
+      let userObj = {
+        id: user.id,
+        email: user.email
+      }
+      res.json(userObj)
+    })
+})

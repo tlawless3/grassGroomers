@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import {Button, Form, Message} from 'semantic-ui-react'
 import {connect} from 'react-redux'
+import {auth} from '../store'
 
 class Signup extends Component{
   constructor(){
     super()
 
-    this.state={
+    this.state = {
       firstName: '',
       lastName: '',
       email: '',
@@ -78,7 +79,7 @@ class Signup extends Component{
         <Form error={this.state.error} onSubmit={this.handleSubmit}>
           <Message
             error
-            Header='Error'
+            header='Error: '
             content={this.state.errorMessage}
           />
           <Form.Group widths='equal'>
