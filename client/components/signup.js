@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {Button, Form, Message} from 'semantic-ui-react'
+import {Button, Form, Message, Link} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {auth} from '../store'
 import { signup as signUpReducer } from '../store/user'
+import axios from 'axios'
 
 class Signup extends Component{
   constructor(){
@@ -26,14 +27,15 @@ class Signup extends Component{
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.validate = this.validate.bind(this)
+    this.parseData = this.parseData.bind(this)
   }
 
   handleSubmit(){
     this.validate().then(() => {
       if (!this.state.error){
-        console.log('submitted')
-        console.log(this.parseData())
-        this.props.submit(this.parseData())
+        let result = this.props.submit(this.parseData())
+        console.log(result)
+        this.props.history.push('/')
       } else {
         console.log('rejected')
       }
@@ -48,12 +50,12 @@ class Signup extends Component{
       this.state.zipcode
     )
     const userData = {
-      email: this.state.email,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
+      email: '' + this.state.email,
+      firstName: '' + this.state.firstName,
+      lastName: '' + this.state.lastName,
       phoneNumber: this.state.phone,
       address: addressObj,
-      password: this.state.password
+      password: '' + this.state.password
     }
     return userData
   }
@@ -61,6 +63,11 @@ class Signup extends Component{
   async validate(){
     let message = '';
     let emailRegEx = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+    let userExist = await axios.get('/api/user/email', {email: this.state.email})
+    console.log('user', userExist)
+    if(!userExist.id){
+      message += 'Email address already in use, '
+    }
     if(!this.state.firstName || !this.state.lastName){
       message += 'Enter a full name, '
     }
@@ -149,6 +156,9 @@ const mapDispatchChange = (dispatch) =>{
 const mapDispatchSignup = (dispatch) => ({
     submit(data){
       dispatch(signUpReducer(data))
+    },
+    checkUser(email){
+      dispatch()
     }
 })
 

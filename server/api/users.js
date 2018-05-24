@@ -27,11 +27,10 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
-// api/users/id used to check for admin status
-router.get('/:id', (req, res, next) => {
+// api/users/email used to check if user exists
+router.get('/email', (req, res, next) => {
   User.findOne({
-    where: {id: req.params.id},
-    attributes: ['id', 'email', 'admin']
+    where: {email: req.body.email}
   })
     .then(user => {
       res.json(user)
