@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 const NavbarDesktop = ({
   activeItem,
   isLoggedIn,
-  handleItemClick
+  handleItemClick,
+  logoutOnClick
 }) => {
   return (
     <div>
@@ -14,7 +15,7 @@ const NavbarDesktop = ({
         <Menu.Item as={Link} to='/' name='home' active={activeItem === 'home'} onClick={handleItemClick} />
         <Menu.Item name='appointments' active={activeItem === 'appointments'} onClick={handleItemClick} />
         <Menu.Menu position='right'>
-          <Menu.Item as={Link} to='/' name='Log Out' />
+          <Menu.Item as={Link} onClick={logoutOnClick} to='/' name='Log Out' />
         </Menu.Menu>
       </Menu>
       ) :
