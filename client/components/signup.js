@@ -126,8 +126,8 @@ validate(emailCheck, message){
             <Form.Input onChange={this.handleChange} fluid label='State' name='state' placeholder='State' />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Input onChange={this.handleChange} fluid label='Password' name='password' placeholder='Password' />
-            <Form.Input onChange={this.handleChange} fluid label='Confirm Password' name='confirmPassword' placeholder='Confirm Password' />
+            <Form.Input onChange={this.handleChange} fluid label='Password' type='password' name='password' placeholder='Password' />
+            <Form.Input onChange={this.handleChange} fluid label='Confirm Password' type='password' name='confirmPassword' placeholder='Confirm Password' />
           </Form.Group>
           <Form.Button content='Submit' />
         </Form>
