@@ -31,15 +31,8 @@ class Signup extends Component{
   }
 
   handleSubmit(){
-    this.validate().then(() => {
-      if (!this.state.error){
-        let result = this.props.submit(this.parseData())
-        console.log(result)
-        this.props.history.push('/')
-      } else {
-        console.log('rejected')
-      }
-    })
+    this.props.submit(this.parseData())
+    this.props.history.push('/')
   }
 
   parseData(){
@@ -60,14 +53,18 @@ class Signup extends Component{
     return userData
   }
 
-  async validate(){
-    let message = '';
+validate(emailCheck, message){
+    if(!emailCheck){
+      axios.get('/api/users/email?email=' + this.state.email).then( result => {
+        if(result.data.email){
+          let error = 'Email address already in use, '
+          this.validate(true, error)
+        } else{
+          this.validate(true, '')
+        }
+      }).catch()
+    } else {
     let emailRegEx = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
-    let userExist = await axios.get('/api/user/email', {email: this.state.email})
-    console.log('user', userExist)
-    if(!userExist.id){
-      message += 'Email address already in use, '
-    }
     if(!this.state.firstName || !this.state.lastName){
       message += 'Enter a full name, '
     }
@@ -78,7 +75,7 @@ class Signup extends Component{
       message += 'Enter an address, '
     }
     if(!this.state.password || !this.state.confirmPassword){
-      message += 'Eneter a password, '
+      message += 'Enter a password, '
     }
     if(this.state.password !== this.state.confirmPassword){
       message += 'Passwords do not match, '
@@ -89,9 +86,8 @@ class Signup extends Component{
         errorMessage: message
       })
     } else{
-      this.setState({
-        error: false
-      })
+      this.handleSubmit()
+    }
     }
   }
 
@@ -105,7 +101,7 @@ class Signup extends Component{
     return(
       <div id='signupForm'>
         <p id='signupFormTitle'>{this.props.name}</p>
-        <Form error={this.state.error} onSubmit={this.handleSubmit}>
+        <Form error={this.state.error} onSubmit={() => (this.validate(false, ''))}>
           <Message
             error
             header='Error: '
@@ -141,7 +137,7 @@ class Signup extends Component{
 }
 
 const mapStateSignup = (state) => ({
-  name: 'Sign Up'
+  name: 'Sign Up',
 })
 
 const mapStateChange = (state) => ({

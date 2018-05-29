@@ -30,19 +30,19 @@ router.post('/', (req, res, next) => {
 // api/users/email used to check if user exists
 router.get('/email', (req, res, next) => {
   User.findOne({
-    where: {email: req.body.email}
+    where: {email: req.query.email}
   })
     .then(user => {
-      res.json(user)
+        res.json({email: user.email})
     })
-    .catch(next)
+    .catch(err => res.json(''))
 })
 
 // api/change
 router.put('/change', (req, res, next) => {
   User.update(
     req.body.user,
-    {where: {id: req.body.email}}
+    {where: {email: req.body.email}}
   )
     .then(user => {
       let userObj = {
