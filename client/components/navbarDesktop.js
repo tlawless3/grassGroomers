@@ -15,8 +15,8 @@ const NavbarDesktop = ({
         <Menu.Item as={Link} to='/' name='home' active={activeItem === 'home'} onClick={handleItemClick} />
         <Menu.Item as={Link} to='/appointmentsHome' name='appointments' active={activeItem === 'appointments'} onClick={handleItemClick} />
         <Menu.Menu position='right'>
-          <Menu.Item as={Link} onClick={logoutOnClick} to='/' name='Log Out' />
           <Menu.Item as={Link} active={activeItem === 'settings'} to='/' name='settings' onClick={handleItemClick} />
+          <Menu.Item as={Link} onClick={logoutOnClick} to='/' name='Log Out' />
         </Menu.Menu>
       </Menu>
       ) :

@@ -87,3 +87,13 @@ form div {
   padding-top: 20px;
   margin: auto;
 }
+
+#appointmentHomeContainer{
+  max-width: 600px;
+  padding-top: 30vh;
+  margin: auto;
+}
+
+.appointmentHomeButton{
+  padding-top: 20px;
+}
