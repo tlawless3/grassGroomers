@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import {Button} from 'semantic-ui-react'
 import InfiniteCalendar from 'react-infinite-calendar';
+import ContinueButton from './continueButton'
 
 class AppointmentCalendar extends Component{
   constructor(props){
     super(props)
 
-    this.state={
+    this.state = {
+      selectedDate: '',
+      continueButton: false,
       startingDate: null,
       screenHeight: 0,
       screenWidth: 0
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
-    this.test = this.test.bind(this)
+    this.dateSelect = this.dateSelect.bind(this)
   }
 
   componentDidMount(){
@@ -39,20 +42,27 @@ class AppointmentCalendar extends Component{
     })
   }
 
-  test(e){
-    console.log('event', e)
+  dateSelect(e){
+    this.setState({
+      continueButton: true,
+      selectedDate: e
+    })
   }
 
   render(){
     return (
       <div>
         <InfiniteCalendar
-        onSelect={this.test}
+        onSelect={this.dateSelect}
         width={this.state.screenWidth}
         height={this.state.screenHeight}
         selected={this.state.startingDate}
         minDate={this.state.startingDate}
         />
+        {this.state.continueButton ?
+          <ContinueButton /> :
+          ''
+        }
       </div>
     )
   }
