@@ -12,6 +12,7 @@ class AppointmentCalendar extends Component{
       screenWidth: 0
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+    this.test = this.test.bind(this)
   }
 
   componentDidMount(){
@@ -27,7 +28,7 @@ class AppointmentCalendar extends Component{
   setCurrentDate() {
     let today = new Date()
     this.setState({
-      startingDate:  new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2)
+      startingDate:  new Date(today.getFullYear(), today.getMonth(), (today.getDate() + 2))
     })
   }
 
@@ -38,15 +39,19 @@ class AppointmentCalendar extends Component{
     })
   }
 
+  test(e){
+    console.log('event', e)
+  }
+
   render(){
     return (
       <div>
         <InfiniteCalendar
+        onSelect={this.test}
         width={this.state.screenWidth}
         height={this.state.screenHeight}
-        selected={this.state.today}
-        disabledDays={[0,6]}
-        minDate={this.state.lastWeek}
+        selected={this.state.startingDate}
+        minDate={this.state.startingDate}
         />
       </div>
     )
