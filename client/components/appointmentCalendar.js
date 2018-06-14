@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import {Button} from 'semantic-ui-react'
 import InfiniteCalendar from 'react-infinite-calendar';
+import ContinueButton from './continueButton'
 
 class AppointmentCalendar extends Component{
   constructor(props){
     super(props)
 
-    this.state={
+    this.state = {
+      selectedDate: '',
+      continueButton: false,
       startingDate: null,
       screenHeight: 0,
       screenWidth: 0
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+    this.dateSelect = this.dateSelect.bind(this)
   }
 
   componentDidMount(){
@@ -27,7 +31,7 @@ class AppointmentCalendar extends Component{
   setCurrentDate() {
     let today = new Date()
     this.setState({
-      startingDate:  new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2)
+      startingDate:  new Date(today.getFullYear(), today.getMonth(), (today.getDate() + 2))
     })
   }
 
@@ -38,16 +42,27 @@ class AppointmentCalendar extends Component{
     })
   }
 
+  dateSelect(e){
+    this.setState({
+      continueButton: true,
+      selectedDate: e
+    })
+  }
+
   render(){
     return (
       <div>
         <InfiniteCalendar
+        onSelect={this.dateSelect}
         width={this.state.screenWidth}
         height={this.state.screenHeight}
-        selected={this.state.today}
-        disabledDays={[0,6]}
-        minDate={this.state.lastWeek}
+        selected={this.state.startingDate}
+        minDate={this.state.startingDate}
         />
+        {this.state.continueButton ?
+          <ContinueButton /> :
+          ''
+        }
       </div>
     )
   }
