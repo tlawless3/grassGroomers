@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Button} from 'semantic-ui-react'
 import InfiniteCalendar from 'react-infinite-calendar';
 import ContinueButton from './continueButton'
+import ApptModal from './apptModal'
 
 class AppointmentCalendar extends Component{
   constructor(props){
@@ -10,12 +11,15 @@ class AppointmentCalendar extends Component{
     this.state = {
       selectedDate: '',
       continueButton: false,
+      modal: false,
       startingDate: null,
+      maxDate: null,
       screenHeight: 0,
       screenWidth: 0
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     this.dateSelect = this.dateSelect.bind(this)
+    this.continueClick = this.continueClick.bind(this)
   }
 
   componentDidMount(){
@@ -31,7 +35,8 @@ class AppointmentCalendar extends Component{
   setCurrentDate() {
     let today = new Date()
     this.setState({
-      startingDate:  new Date(today.getFullYear(), today.getMonth(), (today.getDate() + 2))
+      startingDate:  new Date(today.getFullYear(), today.getMonth(), (today.getDate() + 2)),
+      maxDate: new Date(today.getFullYear(), (today.getMonth() + 2), (today.getDate()))
     })
   }
 
@@ -45,7 +50,14 @@ class AppointmentCalendar extends Component{
   dateSelect(e){
     this.setState({
       continueButton: true,
-      selectedDate: e
+      selectedDate: '' + e
+    })
+  }
+
+  continueClick(){
+    this.setState({
+      continueButton: false,
+      modal: true
     })
   }
 
@@ -58,9 +70,15 @@ class AppointmentCalendar extends Component{
         height={this.state.screenHeight}
         selected={this.state.startingDate}
         minDate={this.state.startingDate}
+        maxDate={this.state.maxDate}
+        disabledDays={this.state.modal ? [0, 1, 2, 3, 4, 5, 6] : ''}
         />
         {this.state.continueButton ?
-          <ContinueButton /> :
+          <ContinueButton continueClick={this.continueClick}/> :
+          ''
+        }
+        {this.state.modal ?
+          <ApptModal date={this.state.selectedDate} /> :
           ''
         }
       </div>
