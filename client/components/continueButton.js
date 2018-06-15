@@ -2,10 +2,11 @@ import React from 'react'
 import {Button} from 'semantic-ui-react'
 
 const ContinueButton = ({
+  continueClick
 }) => {
   return (
     <div id='continueButton'>
-      <Button size='massive' color='green'>Continue</Button>
+      <Button onClick={continueClick} size='massive' color='green'>Continue</Button>
     </div>
   )
 }
