@@ -7,7 +7,7 @@ const Service = db.define('service', {
     allowNull: false
   },
   date: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING,
     allowNull: false
   },
   location: {
