@@ -47,10 +47,16 @@ class AppointmentCalendar extends Component{
     })
   }
 
+  parseDate(time){
+    time = time + ''
+    let result = time.split(' ')
+    return (result.slice(3).join(' '))
+  }
+
   dateSelect(e){
     this.setState({
       continueButton: true,
-      selectedDate: '' + e
+      selectedDate: e + ''
     })
   }
 
