@@ -18,15 +18,21 @@ const ApptModal = ({
     time = time.split(' ')
     let result = time.slice(0, 4)
     result = result.join(' ')
+    console.log(result)
     return (result)
   }
   return (
     <div id='apptModal'>
-      <p>'Scheduling an Appointment on:'{parseDate(date)}</p>
-      <Form>
-        <Dropdown placeholder='Select Service' fluid selection options={options} />
-        <Button type='submit'>Submit</Button>
-      </Form>
+      <div id='modalText'>
+        <p>Scheduling an Appointment on</p>
+        <p>{parseDate(date)}</p>
+      </div>
+      <div id='modalMenu'>
+        <Form>
+          <Dropdown placeholder='Select Service' selection options={options} />
+          <Button type='submit'>Submit</Button>
+        </Form>
+      </div>
     </div>
   )
 }
