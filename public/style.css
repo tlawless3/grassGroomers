@@ -108,9 +108,22 @@ form div {
 
 #apptModal{
   z-index: 100;
+  width: 300px;
   position: fixed;
-  top: 0;
+  top: 30%;
   background-color: green;
+  padding-bottom: 15px;
+  left: 50%;
+  margin-left: -150px;
+}
+
+#modalText {
+  font-size: 25px;
+  text-align: center;
+}
+
+#modalMenu {
+  text-align: center;
 }
 
 .appointmentHomeButton{
