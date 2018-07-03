@@ -106,11 +106,11 @@ form div {
   bottom: 50px;
 }
 
-#test{
+#apptModal{
   z-index: 100;
   position: fixed;
   top: 0;
-  background-color: red;
+  background-color: green;
 }
 
 .appointmentHomeButton{
