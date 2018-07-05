@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 })
 
 // /api/services
-router.post('/', (req, res, next) =>{
+router.post('/', (req, res, next) => {
   Service.create(req.body)
     .then(service => res.status(201).json(service))
     .catch(next)
