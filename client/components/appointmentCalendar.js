@@ -10,17 +10,21 @@ class AppointmentCalendar extends Component{
 
     this.state = {
       selectedDate: '',
+      serviceType: null,
       continueButton: false,
       modal: false,
       startingDate: null,
       maxDate: null,
       screenHeight: 0,
-      screenWidth: 0
+      screenWidth: 0,
+      error: false
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     this.dateSelect = this.dateSelect.bind(this)
     this.continueClick = this.continueClick.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.setService = this.setService.bind(this)
+    this.submitAppt = this.submitAppt.bind(this)
   }
 
   componentDidMount(){
@@ -48,12 +52,6 @@ class AppointmentCalendar extends Component{
     })
   }
 
-  parseDate(time){
-    time = time + ''
-    let result = time.split(' ')
-    return (result.slice(3).join(' '))
-  }
-
   dateSelect(e){
     this.setState({
       continueButton: true,
@@ -71,7 +69,26 @@ class AppointmentCalendar extends Component{
   closeModal(){
     this.setState({
       modal: false,
-      continueButton: true
+      continueButton: true,
+      serviceType: null
+    })
+  }
+
+  submitAppt(){
+    if (this.state.serviceType){
+      console.log('submit: ', this.state.serviceType)
+      this.closeModal()
+    } else {
+      this.setState({
+        errorStatus: true
+      })
+    }
+  }
+
+  setService(unknown, target){
+    this.setState({
+      serviceType: target.value,
+      errorStatus: false
     })
   }
 
@@ -88,11 +105,14 @@ class AppointmentCalendar extends Component{
         disabledDays={this.state.modal ? [0, 1, 2, 3, 4, 5, 6] : ''}
         />
         {this.state.continueButton ?
-          <ContinueButton continueClick={this.continueClick}/> :
+          <ContinueButton continueClick={this.continueClick} /> :
           ''
         }
         {this.state.modal ?
-          <ApptModal closeModal={this.closeModal} date={this.state.selectedDate} /> :
+          <ApptModal closeModal={this.closeModal} submitAppt={this.submitAppt}
+            setService={this.setService} date={this.state.selectedDate}
+            errorStatus={this.state.errorStatus}
+          /> :
           ''
         }
       </div>

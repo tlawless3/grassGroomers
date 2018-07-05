@@ -1,10 +1,14 @@
 import React from 'react'
-import { Dropdown, Form, Button, Icon } from 'semantic-ui-react'
+import { Dropdown, Form, Button, Icon, Message } from 'semantic-ui-react'
 
 const ApptModal = ({
   date,
-  closeModal
+  closeModal,
+  setService,
+  submitAppt,
+  errorStatus
 }) => {
+
   const options = [
     {
       text: 'Mowing',
@@ -15,13 +19,14 @@ const ApptModal = ({
       value: 'shovelling'
     }
   ]
+
   const parseDate = (time) =>{
     time = time.split(' ')
     let result = time.slice(0, 4)
     result = result.join(' ')
-    console.log(result)
     return (result)
   }
+
   return (
     <div id='apptModal'>
       <div id='exitButtonWrapper'>
@@ -34,8 +39,11 @@ const ApptModal = ({
         <p>{parseDate(date)}</p>
       </div>
       <div id='modalMenu'>
-        <Form>
-          <Dropdown placeholder='Select Service' selection options={options} />
+        <Form onSubmit={submitAppt} error={errorStatus}>
+          <Message error header='Please Select a Service'/>
+          <Dropdown onChange={setService} placeholder='Select Service' selection
+            options={options} error={errorStatus}
+          />
           <Button type='submit'>Submit</Button>
         </Form>
       </div>
