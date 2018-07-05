@@ -10,16 +10,27 @@ const SET_USER_SERVICES = 'SET_USER_SERVICES'
 /**
  * INITIAL STATE
  */
-const Services = []
+const userServices = []
 
 /**
  * ACTION CREATORS
  */
+const setUserServices = services => ({ type: SET_USER_SERVICES, services})
 const setAllServices = services => ({type: SET_ALL_SERVICES, services})
 
 /**
  * THUNK CREATORS
  */
+
+export const fetchUserServices = (userId) =>
+ dispatch => {
+   axios.get(`/api/services/${userId}`)
+     .then(res => {
+       dispatch(setUserServices(res.data || userServices))
+     })
+     .catch(err => console.log('error fetching user services', err));
+  };
+
   export const fetchServices = () =>
    dispatch => {
      axios.get(`/api/services`)
