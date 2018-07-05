@@ -1,8 +1,9 @@
 import React from 'react'
-import { Dropdown, Form, Button } from 'semantic-ui-react'
+import { Dropdown, Form, Button, Icon } from 'semantic-ui-react'
 
 const ApptModal = ({
-  date
+  date,
+  closeModal
 }) => {
   const options = [
     {
@@ -23,6 +24,11 @@ const ApptModal = ({
   }
   return (
     <div id='apptModal'>
+      <div id='exitButtonWrapper'>
+        <Button icon onClick={closeModal}>
+          <Icon name='close'/>
+        </Button>
+      </div>
       <div id='modalText'>
         <p>Scheduling an Appointment on</p>
         <p>{parseDate(date)}</p>
