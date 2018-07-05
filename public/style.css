@@ -111,6 +111,7 @@ form div {
   width: 300px;
   position: fixed;
   top: 30%;
+  border-radius: 5%;
   background-color: green;
   padding-bottom: 15px;
   left: 50%;
