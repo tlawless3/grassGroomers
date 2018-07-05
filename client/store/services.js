@@ -4,8 +4,8 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const SET_ALL_SERVICES = 'GET_ALL_SERVICES'
-const SET_ALL_SERVICES = 'SET_USER_SERVICES'
+const SET_ALL_SERVICES = 'SET_ALL_SERVICES'
+const SET_USER_SERVICES = 'SET_USER_SERVICES'
 
 /**
  * INITIAL STATE

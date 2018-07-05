@@ -20,6 +20,7 @@ class AppointmentCalendar extends Component{
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     this.dateSelect = this.dateSelect.bind(this)
     this.continueClick = this.continueClick.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
 
   componentDidMount(){
@@ -67,6 +68,13 @@ class AppointmentCalendar extends Component{
     })
   }
 
+  closeModal(){
+    this.setState({
+      modal: false,
+      continueButton: true
+    })
+  }
+
   render(){
     return (
       <div>
@@ -84,7 +92,7 @@ class AppointmentCalendar extends Component{
           ''
         }
         {this.state.modal ?
-          <ApptModal date={this.state.selectedDate} /> :
+          <ApptModal closeModal={this.closeModal} date={this.state.selectedDate} /> :
           ''
         }
       </div>
