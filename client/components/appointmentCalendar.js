@@ -85,6 +85,7 @@ class AppointmentCalendar extends Component{
         location: this.props.user.address,
       }, this.props.user.id)
       this.closeModal()
+      this.props.history.push('/appointmentUser')
     } else {
       this.setState({
         errorStatus: true
