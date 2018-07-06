@@ -54,7 +54,7 @@ const addService = services => ({type: ADD_SERVICE, services})
 /**
  * REDUCER
  */
-export default function (state = defaultUser, action) {
+export default function (state = services, action) {
   switch (action.type) {
     case SET_USER_SERVICES:
       return action.services
