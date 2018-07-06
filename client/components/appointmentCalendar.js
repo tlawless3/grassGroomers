@@ -109,7 +109,8 @@ class AppointmentCalendar extends Component{
           ''
         }
         {this.state.modal ?
-          <ApptModal closeModal={this.closeModal} submitAppt={this.submitAppt}
+          <ApptModal
+            closeModal={this.closeModal} submitAppt={this.submitAppt}
             setService={this.setService} date={this.state.selectedDate}
             errorStatus={this.state.errorStatus}
           /> :
