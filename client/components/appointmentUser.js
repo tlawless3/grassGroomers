@@ -19,8 +19,8 @@ class AppointmentUser extends Component {
       <div>
         {this.props.services.map(service => (
           <div>
-            <p>service.type</p>
-            <p>service.date</p>
+            <p>{service.type}</p>
+            <p>{service.date}</p>
           </div>
         ))}
       </div>
@@ -32,7 +32,7 @@ const mapState = ({ user, services }) => ({ user, services })
 
 const mapDispatch = (dispatch) => ({
   fetchAppointments(userId){
-    fetchUserServices(userId)
+    dispatch(fetchUserServices(userId))
   }
 })
 
