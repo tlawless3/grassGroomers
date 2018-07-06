@@ -1,6 +1,5 @@
 import React from 'react'
 import { Dropdown, Form, Button, Icon, Message } from 'semantic-ui-react'
-import {connect} from 'react-redux'
 
 const ApptModal = ({
   date,
@@ -52,14 +51,4 @@ const ApptModal = ({
   )
 }
 
-const mapState = (state) => ({
-  user: state.user
-})
-
-const mapDispatch = (dispatch) => ({
-  submit(data){
-    dispatch()
-  }
-})
-
-export default connect(mapState, mapDispatch) (ApptModal)
+export default ApptModal
