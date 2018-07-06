@@ -3,6 +3,8 @@ import {Button} from 'semantic-ui-react'
 import InfiniteCalendar from 'react-infinite-calendar';
 import ContinueButton from './continueButton'
 import ApptModal from './apptModal'
+import {connect} from 'react-redux'
+import { createService } from '../store/services'
 
 class AppointmentCalendar extends Component{
   constructor(props){
@@ -76,7 +78,12 @@ class AppointmentCalendar extends Component{
 
   submitAppt(){
     if (this.state.serviceType){
-      console.log('submit: ', this.state.serviceType)
+      console.log(this.props)
+      this.props.submitAppt({
+        type: this.state.serviceType,
+        date: this.state.selectedDate,
+        location: this.props.user.address,
+      }, this.props.user.id)
       this.closeModal()
     } else {
       this.setState({
@@ -121,4 +128,12 @@ class AppointmentCalendar extends Component{
   }
 }
 
-export default AppointmentCalendar
+const mapState = ({ user }) => ({ user })
+
+const mapDispatch = (dispatch) => ({
+  submitAppt(data, id){
+    dispatch(createService(data, id))
+  }
+})
+
+export default connect (mapState, mapDispatch) (AppointmentCalendar)
