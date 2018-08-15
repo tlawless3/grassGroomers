@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 const NavbarMobile = ({
   isLoggedIn,
+  isAdmin,
   handleItemClick,
   logoutOnClick
 }) => {
@@ -15,6 +16,7 @@ const NavbarMobile = ({
             <Dropdown item text='Menu'>
               <Dropdown.Menu>
                 <Dropdown.Item as={Link} to='/' name='home' onClick={handleItemClick}>Home</Dropdown.Item>
+                {isAdmin ? <Dropdown.Item as={Link} to='/' name='home' onClick={handleItemClick}>Admin</Dropdown.Item> : ''}
                 <Dropdown.Item as={Link} to='/appointmentsHome' name='appointments' onClick={handleItemClick}> Appointments </Dropdown.Item>
                 <Dropdown.Item as={Link} to='/' name='home' onClick={logoutOnClick}>Log Out</Dropdown.Item>
               </Dropdown.Menu>
