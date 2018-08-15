@@ -29,10 +29,10 @@ class Navbar extends Component{
     return(
       <div>
         <Responsive minWidth={751} >
-          <NavbarDesktop logoutOnClick={this.props.handleClick} isLoggedIn={this.props.isLoggedIn} activeItem={this.state.activeItem} handleItemClick={this.handleItemClick}/>
+          <NavbarDesktop logoutOnClick={this.props.handleClick} isAdmin={this.props.isAdmin} isLoggedIn={this.props.isLoggedIn} activeItem={this.state.activeItem} handleItemClick={this.handleItemClick}/>
         </Responsive>
         <Responsive maxWidth={750} >
-          <NavbarMobile logoutOnClick={this.props.handleClick} handleItemClick={this.handleItemClick} isLoggedIn={this.props.isLoggedIn} handleMobileClick={this.handleMobileClick} />
+          <NavbarMobile logoutOnClick={this.props.handleClick} isAdmin={this.props.isAdmin} handleItemClick={this.handleItemClick} isLoggedIn={this.props.isLoggedIn} handleMobileClick={this.handleMobileClick} />
         </Responsive>
       </div>
     )
@@ -43,7 +43,8 @@ class Navbar extends Component{
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.admin
   }
 }
 
